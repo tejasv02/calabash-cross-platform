@@ -9,14 +9,24 @@ Before do |scenario|
   if @scenario_is_outline
     scenario = scenario.scenario_outline
   end
-
-  log "New scenario - reinstalling apps"
-  uninstall_apps
-  install_app(ENV["TEST_APP_PATH"])
-  install_app(ENV["APP_PATH"])
-
   feature_name = scenario.feature.title
-  if FeatureNameMemory.feature_name != feature_name
+
+  if FeatureNameMemory.feature_name != feature_name \
+      or ENV["RESET_BETWEEN_SCENARIOS"] == "1"
+    if ENV["RESET_BETWEEN_SCENARIOS"] == "1"
+      log "New scenario - reinstalling apps"
+      uninstall_apps
+      install_app(ENV["TEST_APP_PATH"])
+      install_app(ENV["APP_PATH"])
+
+    else
+      log "First scenario in feature - reinstalling apps"
+      #uninstall_apps
+      #install_app(ENV["TEST_APP_PATH"])
+      #install_app(ENV["APP_PATH"])
+      clear_app_data
+    end
+
     FeatureNameMemory.feature_name = feature_name
     FeatureNameMemory.invocation = 1
   else

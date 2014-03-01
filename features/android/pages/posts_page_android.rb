@@ -1,7 +1,3 @@
-require 'calabash-android/abase'
-
-class PostsPage < Calabash::ABase
-
-
+class PostsPage < BasePage
 
 end

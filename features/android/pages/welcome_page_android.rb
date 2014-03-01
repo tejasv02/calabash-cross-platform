@@ -1,26 +1,24 @@
 require 'calabash-android/abase'
 
-class WelcomePage < Calabash::ABase
+class WelcomePage < BasePage
 
   def trait
-    "android.widget.Button marked:'Add blog hosted at WordPress.com'"
+    "* marked:'Start blogging in seconds.'"
   end
 
-  def wordpress_blog
-    touch(trait)
-    page(WordPressComPage).await
+  #def await
+  #  sleep 2
+  #  #self
+  #end
+
+  def wait_for_welcome_screen
+    wait_for_elements_exist([trait])
   end
 
-  def await(opts={})
-
-    begin
-      r = performAction('assert_text', "GNU GENERAL PUBLIC LICENSE", false)
-    rescue
-      touch("android.widget.Button marked:'Accept'")
-    end
-    wait_for_elements_exist(["* {text BEGINSWITH 'Start blogging'}"])
-
-    self
+  def navigate_to_login
+    click_on_text "Add self-hosted WordPress blog"
+    #touch "* marked:'Add self-hosted WordPress blog'"
   end
+
 
 end
