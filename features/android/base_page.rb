@@ -3,14 +3,6 @@ require_relative 'support/common_methods'
 
 class BasePage < Calabash::ABase
   include CommonMethods
-  #
-  #def initialize
-  #
-  #end
-
-  #def method_missing sym, *args, &block
-  #  send sym, *args, &block
-  #end
 
   def welcome_page
     @welcome_page ||=page(WelcomePage)
